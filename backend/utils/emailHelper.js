@@ -8,6 +8,24 @@ const FROM_EMAIL = process.env.FROM_EMAIL || "noreply@bookmyticket.com";
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
 /**
+ * Format date/time for Indian locale
+ * @param {string} dateString - ISO date string
+ * @returns {string} Formatted date/time
+ */
+function formatShowTime(dateString) {
+  return new Date(dateString).toLocaleString('en-IN', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'Asia/Kolkata'
+  });
+}
+
+/**
  * Send booking confirmation email
  * @param {object} params
  * @param {string} params.to
@@ -68,7 +86,7 @@ export async function sendBookingConfirmation({
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Show Time:</span>
-                  <span>${new Date(showTime).toLocaleString()}</span>
+                  <span>${formatShowTime(showTime)}</span>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Seats:</span>
@@ -161,7 +179,7 @@ export async function sendCancellationEmail({
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Show Time:</span>
-                  <span>${new Date(showTime).toLocaleString()}</span>
+                  <span>${formatShowTime(showTime)}</span>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Cancelled Seats:</span>
