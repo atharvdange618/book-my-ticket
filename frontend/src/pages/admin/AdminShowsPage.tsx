@@ -95,11 +95,11 @@ export default function AdminShowsPage() {
 
   const { mutate: create, isPending } = useMutation({
     mutationFn: (v: FormValues) => {
-      const year = v.showTime.getFullYear();
-      const month = String(v.showTime.getMonth() + 1).padStart(2, "0");
-      const day = String(v.showTime.getDate()).padStart(2, "0");
-      const hours = String(v.showTime.getHours()).padStart(2, "0");
-      const minutes = String(v.showTime.getMinutes()).padStart(2, "0");
+      const year = v.showTime.getUTCFullYear();
+      const month = String(v.showTime.getUTCMonth() + 1).padStart(2, "0");
+      const day = String(v.showTime.getUTCDate()).padStart(2, "0");
+      const hours = String(v.showTime.getUTCHours()).padStart(2, "0");
+      const minutes = String(v.showTime.getUTCMinutes()).padStart(2, "0");
       const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:00`;
 
       return showsApi.create({
